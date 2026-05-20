@@ -10,7 +10,8 @@
 
   /* ── Text ── */
   --navy:       oklch(24% 0.03 245);       /* deep slate-navy — primary text */
-  --navy-muted: oklch(39% 0.025 240);      /* mid-tone coastal — secondary text (WCAG AA on stone) */
+  --navy-muted: oklch(39% 0.025 240);      /* mid-tone coastal — secondary text, WCAG AA on --stone */
+  --brace-hover: oklch(52% 0.19 215);    /* nav accent hover (WCAG AA on stone) */
   --navy-deep:  oklch(18% 0.022 245);      /* darkest navy — hover states */
 
   /* ── Color One: Sun-Gold ── */
@@ -306,7 +307,7 @@ address { font-style: normal; }
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: oklch(100% 0 0 / 0.32);
+  color: oklch(100% 0 0 / 0.52);
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   white-space: nowrap;
@@ -450,8 +451,6 @@ address { font-style: normal; }
   gap: 2rem;
 }
 
-.nav-order-mobile { display: none; }
-
 .nav-links a {
   font-size: 0.8125rem;
   font-weight: 500;
@@ -479,19 +478,6 @@ address { font-style: normal; }
 .nav-links a:focus-visible::after,
 .nav-links a.is-active::after { transform: scaleX(1); }
 .nav-links a:focus-visible { outline: 2px solid var(--brace); outline-offset: 3px; }
-
-.btn-nav {
-  font-size: 0.625rem;
-  padding: 0.5625rem 1.25rem;
-  background-color: var(--brace);
-  color: oklch(100% 0 0);
-  border-color: var(--brace);
-}
-.btn-nav:hover {
-  background-color: oklch(52% 0.19 215);
-  border-color: oklch(52% 0.19 215);
-  color: oklch(100% 0 0);
-}
 
 /* ============================================================
    Hero — Split-screen editorial
@@ -1431,23 +1417,6 @@ address { font-style: normal; }
   /* Suppress desktop underline on touch */
   .nav-links a::after { display: none; }
 
-  /* Order CTA at bottom of mobile nav panel */
-  .nav-order-mobile {
-    display: flex;
-    margin-block-start: auto;
-    padding-block-start: 2rem;
-    padding-block-end: 0.5rem;
-    width: 100%;
-    border-block-start: 1px solid var(--rule);
-  }
-  .nav-order-mobile .btn {
-    width: 100%;
-    justify-content: center;
-    padding-block: 1rem;
-    font-size: 0.9375rem;
-    letter-spacing: 0.06em;
-  }
-
   /* ── Hero: revert to centered on mobile ── */
   .hero {
     min-block-size: 100svh;
@@ -1577,7 +1546,7 @@ address { font-style: normal; }
   .fact-divider { width: 2.5rem; height: 1px; }
 
   .contact-channel {
-    grid-template-columns: 1fr 8rem;
+    grid-template-columns: 1fr minmax(6rem, 8rem);
     grid-template-rows: auto auto;
   }
 
