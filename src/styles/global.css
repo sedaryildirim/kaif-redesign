@@ -391,12 +391,19 @@ address { font-style: normal; }
   inset-inline: 0;
   z-index: 100;
   background-color: color-mix(in srgb, var(--stone) 93%, transparent);
+  border-block-end: 1px solid var(--rule);
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* backdrop-filter on pseudo-element so it doesn't trap position:fixed children */
+.site-nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-block-end: 1px solid var(--rule);
-  transition:
-    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    backdrop-filter  0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .site-nav--scrolled {
