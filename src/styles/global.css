@@ -513,7 +513,7 @@ address { font-style: normal; }
   font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: oklch(97% 0.005 90 / 0.82);
+  color: oklch(100% 0 0 / 0.9);
   text-shadow: 0 1px 8px oklch(0% 0 0 / 0.55);
   margin-block-end: 1.5rem;
   animation: hero-stagger-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
@@ -527,7 +527,7 @@ address { font-style: normal; }
   font-weight: 400;
   line-height: 0.9;
   letter-spacing: -0.03em;
-  color: var(--stone);
+  color: oklch(100% 0 0);
   margin-block-end: 1.5rem;
   font-kerning: normal;
   font-feature-settings: "kern" 1, "liga" 1, "dlig" 1;
@@ -547,7 +547,7 @@ address { font-style: normal; }
 
 .hero-tagline {
   font-size: clamp(1rem, 1.8vw, 1.125rem);
-  color: oklch(97% 0.005 90 / 0.92);
+  color: oklch(100% 0 0 / 0.92);
   max-inline-size: 44ch;
   margin-inline: auto;
   line-height: 1.75;
