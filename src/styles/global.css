@@ -417,6 +417,8 @@ address { font-style: normal; }
   gap: 2rem;
 }
 
+.nav-order-mobile { display: none; }
+
 .nav-links a {
   font-size: 0.8125rem;
   font-weight: 500;
@@ -1343,8 +1345,6 @@ address { font-style: normal; }
 }
 
 @media (max-width: 600px) {
-  /* Hide Order button — redundant in mobile nav */
-  .btn-nav { display: none; }
 
   /* Reduce section block padding at mobile */
   .section-place     { padding-block-start: clamp(3rem, 10vw, 4rem); }
@@ -1433,12 +1433,25 @@ address { font-style: normal; }
     border-block-end: 1px solid var(--rule);
   }
 
+  .btn-nav { display: none; }
+
   .nav-links a {
     display: block;
     padding: 1rem 0;
     font-size: 0.9375rem;
     letter-spacing: 0.02em;
     color: var(--navy);
+  }
+
+  /* Order CTA at bottom of mobile nav panel */
+  .nav-order-mobile {
+    display: flex;
+    margin-block-start: 2rem;
+    width: 100%;
+  }
+  .nav-order-mobile .btn {
+    width: 100%;
+    justify-content: center;
   }
 
   .hero-ctas { flex-direction: column; align-items: center; }
