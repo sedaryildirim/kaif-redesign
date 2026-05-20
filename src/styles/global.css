@@ -492,11 +492,13 @@ address { font-style: normal; }
   align-items: flex-end;
   justify-content: flex-start;
   overflow: hidden;
+  /* dark fallback so GSAP yPercent offset never reveals --stone beneath */
+  background-color: oklch(8% 0.015 235);
 }
 
 .hero-img-wrap {
   position: absolute;
-  inset: 0;
+  inset: -6% 0;
   animation: hero-image-fade 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
 
