@@ -1297,95 +1297,9 @@ address { font-style: normal; }
    ============================================================ */
 
 @media (max-width: 960px) {
-  .hero {
-    min-block-size: 100svh;
-  }
+  /* ── Nav: hamburger replaces horizontal links ── */
+  .btn-nav { display: none; }
 
-  .hero-wordmark {
-    font-size: clamp(4rem, 13vw, 6.5rem);
-  }
-
-  .menu-cards {
-    grid-template-columns: 1fr;
-  }
-
-  .menu-card-img {
-    height: clamp(180px, 48vw, 280px);
-  }
-
-  .place-inner {
-    grid-template-columns: 1fr;
-    min-block-size: auto;
-  }
-
-  .place-img-wrap {
-    grid-column: 1;
-    grid-row: 1;
-    min-block-size: 52vw;
-    max-block-size: 480px;
-  }
-
-  .place-text {
-    grid-column: 1;
-    grid-row: 2;
-    padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 3.5rem);
-  }
-
-.menu-list {
-    grid-template-columns: 1fr;
-  }
-
-  .reviews-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
-  .findus-inner {
-    grid-template-columns: 1fr;
-  }
-
-  .findus-img-wrap {
-    position: static;
-    order: -1;
-  }
-}
-
-@media (max-width: 600px) {
-
-  /* Reduce section block padding at mobile */
-  .section-place     { padding-block-start: clamp(3rem, 10vw, 4rem); }
-  .section-menu      { padding-block-start: clamp(3rem, 10vw, 4rem); }
-  .section-full-menu { padding-block: clamp(3rem, 10vw, 4rem); }
-  .section-reviews   { padding-block: clamp(3rem, 10vw, 4rem); }
-  .section-findus    { padding-block: clamp(3rem, 10vw, 4rem); }
-
-  /* Menu tabs — horizontal scroll row (4 tabs wrap badly) */
-  .menu-tabs {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    gap: 0;
-  }
-  .menu-tabs::-webkit-scrollbar { display: none; }
-  .menu-tab { flex-shrink: 0; padding-inline-end: 2rem; }
-
-  /* Reduce place text block/inline padding at mobile */
-  .place-text {
-    padding: clamp(2.5rem, 8vw, 4rem) clamp(1.5rem, 5vw, 2.5rem);
-  }
-
-  /* Footer: single column at mobile */
-  .footer-inner {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    row-gap: 1.25rem;
-  }
-  .footer-logo { grid-row: auto; align-self: auto; }
-  .footer-nav { gap: 1.25rem; }
-  .footer-meta { grid-column: auto; }
-
-  /* Mobile nav toggle — 44×44px touch target, 22×14px visual */
   .nav-toggle {
     display: flex;
     flex-direction: column;
@@ -1439,8 +1353,6 @@ address { font-style: normal; }
     border-block-end: 1px solid var(--rule);
   }
 
-  .btn-nav { display: none; }
-
   .nav-links a {
     display: block;
     padding: 1rem 0;
@@ -1448,6 +1360,9 @@ address { font-style: normal; }
     letter-spacing: 0.02em;
     color: var(--navy);
   }
+
+  /* Suppress desktop underline on touch */
+  .nav-links a::after { display: none; }
 
   /* Order CTA at bottom of mobile nav panel */
   .nav-order-mobile {
@@ -1460,7 +1375,111 @@ address { font-style: normal; }
     justify-content: center;
   }
 
-  .hero-ctas { flex-direction: column; align-items: center; }
+  /* ── Hero ── */
+  .hero {
+    min-block-size: 100svh;
+  }
+
+  .hero-wordmark {
+    font-size: clamp(4rem, 13vw, 6.5rem);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-inline-size: 320px;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ── Layout stacks ── */
+  .menu-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-card-img {
+    height: clamp(180px, 48vw, 280px);
+  }
+
+  .place-inner {
+    grid-template-columns: 1fr;
+    min-block-size: auto;
+  }
+
+  .place-img-wrap {
+    grid-column: 1;
+    grid-row: 1;
+    min-block-size: 52vw;
+    max-block-size: 480px;
+  }
+
+  .place-text {
+    grid-column: 1;
+    grid-row: 2;
+    padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 3.5rem);
+  }
+
+  .menu-list {
+    grid-template-columns: 1fr;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .findus-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .findus-img-wrap {
+    position: static;
+    order: -1;
+  }
+}
+
+@media (max-width: 600px) {
+
+  /* Reduce section block padding at mobile */
+  .section-place     { padding-block-start: clamp(3rem, 10vw, 4rem); }
+  .section-menu      { padding-block-start: clamp(3rem, 10vw, 4rem); }
+  .section-full-menu { padding-block: clamp(3rem, 10vw, 4rem); }
+  .section-reviews   { padding-block: clamp(3rem, 10vw, 4rem); }
+  .section-findus    { padding-block: clamp(3rem, 10vw, 4rem); }
+
+  /* Menu tabs — horizontal scroll row (4 tabs wrap badly) */
+  .menu-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0;
+  }
+  .menu-tabs::-webkit-scrollbar { display: none; }
+  .menu-tab { flex-shrink: 0; padding-inline-end: 2rem; }
+
+  /* Reduce place text block/inline padding at mobile */
+  .place-text {
+    padding: clamp(2.5rem, 8vw, 4rem) clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+  /* Footer: single column at mobile */
+  .footer-inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    row-gap: 1.25rem;
+  }
+  .footer-logo { grid-row: auto; align-self: auto; }
+  .footer-nav { gap: 1.25rem; }
+  .footer-meta { grid-column: auto; }
 
   .fact-strip-inner {
     flex-direction: column;
