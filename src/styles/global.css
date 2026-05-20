@@ -287,6 +287,32 @@ address { font-style: normal; }
 .hero-cursor-glow.is-active { opacity: 1; }
 
 /* ============================================================
+   Hero spine — vertical editorial label on left edge
+   ============================================================ */
+
+.hero-spine {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: clamp(0.75rem, 2vw, 1.5rem);
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-spine-text {
+  font-family: var(--font-body);
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: oklch(100% 0 0 / 0.32);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+
+/* ============================================================
    Click ripple
    ============================================================ */
 
@@ -470,8 +496,8 @@ address { font-style: normal; }
   position: relative;
   min-block-size: 100svh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: flex-start;
   overflow: hidden;
 }
 
@@ -491,21 +517,18 @@ address { font-style: normal; }
 .hero-scrim {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse 75% 60% at 50% 52%,
-    oklch(8% 0.015 235 / 0.42) 0%,
-    oklch(8% 0.015 235 / 0.16) 55%,
-    transparent 100%
-  );
+  background:
+    linear-gradient(to top, oklch(8% 0.015 235 / 0.78) 0%, oklch(8% 0.015 235 / 0.24) 42%, transparent 65%),
+    linear-gradient(to right, oklch(8% 0.015 235 / 0.52) 0%, transparent 60%);
   pointer-events: none;
 }
 
 .hero-content {
   position: relative;
   z-index: 1;
-  text-align: center;
-  padding: calc(60px + 1.5rem) clamp(1.5rem, 5vw, 4rem) 2rem;
-  max-inline-size: 760px;
+  text-align: left;
+  padding: 0 clamp(2rem, 8vw, 6.5rem) clamp(4rem, 6vw, 5.5rem);
+  max-inline-size: 640px;
   width: 100%;
 }
 
@@ -551,7 +574,7 @@ address { font-style: normal; }
   font-size: clamp(1rem, 1.8vw, 1.125rem);
   color: oklch(100% 0 0 / 0.92);
   max-inline-size: 44ch;
-  margin-inline: auto;
+  margin-inline: 0;
   line-height: 1.75;
   margin-block-end: 2rem;
   text-wrap: pretty;
@@ -563,7 +586,7 @@ address { font-style: normal; }
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  justify-content: center;
+  justify-content: flex-start;
   margin-block-end: 2rem;
   animation: hero-stagger-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.78s both;
 }
@@ -572,10 +595,8 @@ address { font-style: normal; }
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.07em;
-  color: oklch(97% 0.005 90 / 0.56);
-  padding-block-start: 1.25rem;
-  border-block-start: 1px solid oklch(97% 0.005 90 / 0.22);
-  display: inline-block;
+  color: oklch(97% 0.005 90 / 0.52);
+  display: block;
   animation: hero-stagger-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.92s both;
 }
 
@@ -673,22 +694,32 @@ address { font-style: normal; }
   background: var(--stone);
   border: 1px solid var(--rule);
   overflow: hidden;
+  position: relative;
+  min-block-size: clamp(280px, 30vw, 380px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
-.menu-card-img {
-  height: clamp(200px, 26vw, 320px);
+.menu-cards .menu-card:last-child {
+  background: var(--stone-warm);
+}
+
+.menu-card-watermark {
+  position: absolute;
+  inset: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(4rem, 9vw, 8.5rem);
+  color: var(--navy);
+  opacity: 0.055;
+  line-height: 1.0;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  pointer-events: none;
+  user-select: none;
   overflow: hidden;
+  word-break: break-word;
 }
-
-.menu-card-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.menu-card:hover .menu-card-img img { transform: scale(1.04); }
 
 .menu-card-body {
   padding: 1.5rem 1.75rem 1.75rem;
@@ -1244,10 +1275,31 @@ address { font-style: normal; }
   font-feature-settings: "kern" 1, "liga" 1;
 }
 
-.reviews-grid {
+.reviews-editorial {
+  /* single-column wrapper: featured then secondary pair */
+}
+
+.review-featured {
+  max-inline-size: 840px;
+  padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(3rem, 5vw, 4rem);
+  border-block-end: 1px solid var(--rule);
+  margin-block-end: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+.review-featured-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+  color: var(--navy);
+  line-height: 1.55;
+  text-wrap: pretty;
+  margin-block-end: 1.25rem;
+}
+
+.reviews-secondary {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(2rem, 4vw, 4rem);
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
 }
 
@@ -1375,9 +1427,35 @@ address { font-style: normal; }
     justify-content: center;
   }
 
-  /* ── Hero ── */
+  /* ── Hero: revert to centered on mobile ── */
   .hero {
     min-block-size: 100svh;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-content {
+    text-align: center;
+    padding: calc(60px + 1.5rem) clamp(1.5rem, 5vw, 2.5rem) 2.5rem;
+    max-inline-size: 100%;
+  }
+
+  .hero-tagline {
+    margin-inline: auto;
+  }
+
+  .hero-ctas {
+    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-inline-size: 320px;
+    margin-inline: auto;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+    justify-content: center;
   }
 
   .hero-wordmark {
@@ -1388,25 +1466,13 @@ address { font-style: normal; }
     font-size: 0.75rem;
   }
 
-  .hero-ctas {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    max-inline-size: 320px;
-  }
-
-  .hero-ctas .btn {
-    width: 100%;
-    justify-content: center;
+  .hero-spine {
+    display: none;
   }
 
   /* ── Layout stacks ── */
   .menu-cards {
     grid-template-columns: 1fr;
-  }
-
-  .menu-card-img {
-    height: clamp(180px, 48vw, 280px);
   }
 
   .place-inner {
@@ -1431,7 +1497,7 @@ address { font-style: normal; }
     grid-template-columns: 1fr;
   }
 
-  .reviews-grid {
+  .reviews-secondary {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }

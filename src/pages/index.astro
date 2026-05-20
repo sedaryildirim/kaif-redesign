@@ -55,6 +55,11 @@ import Base from '../layouts/Base.astro';
          ================================================================ -->
     <section class="hero" aria-label="Welcome to Kaif">
 
+      <!-- Vertical spine label -->
+      <div class="hero-spine" aria-hidden="true">
+        <span class="hero-spine-text">Chaloklum Bay &middot; Koh Phangan &middot; Thailand</span>
+      </div>
+
       <!-- Full-bleed background image -->
       <div class="hero-img-wrap" aria-hidden="true">
         <img
@@ -83,13 +88,13 @@ import Base from '../layouts/Base.astro';
         </p>
 
         <div class="hero-ctas">
-          <a class="btn btn-primary-light" href="#menu">The Menu</a>
           <a
-            class="btn btn-ghost-light"
+            class="btn btn-primary-light"
             href="https://delivery-kpg.com/stores/kaif"
             target="_blank"
             rel="noopener noreferrer"
           >Order Online</a>
+          <a class="btn btn-ghost-light" href="#menu">The Menu</a>
         </div>
 
         <p class="hero-meta">Open daily &middot; 8:00 AM &ndash; 8:00 PM</p>
@@ -165,14 +170,7 @@ import Base from '../layouts/Base.astro';
 
         <div class="menu-cards">
           <article class="menu-card menu-card--wide" data-reveal data-delay="0" aria-label="Shakshuka">
-            <div class="menu-card-img">
-              <img
-                src={`${import.meta.env.BASE_URL}assets/kaif-interior-shot.webp`}
-                alt="Shakshuka: eggs in spiced tomato with homemade folded laffa"
-                width="900" height="720" loading="lazy"
-                style="object-position: center 20%;"
-              />
-            </div>
+            <div class="menu-card-watermark" aria-hidden="true">shakshuka</div>
             <div class="menu-card-body">
               <span class="label">Breakfast</span>
               <h3>Shakshuka</h3>
@@ -181,14 +179,7 @@ import Base from '../layouts/Base.astro';
           </article>
 
           <article class="menu-card" data-reveal data-delay="80" aria-label="Levant Breakfast">
-            <div class="menu-card-img">
-              <img
-                src={`${import.meta.env.BASE_URL}assets/kaif-hero-image.webp`}
-                alt="Levant Breakfast: hummus, Israeli salad, labneh, olives, and fresh laffa"
-                width="900" height="720" loading="lazy"
-                style="object-position: center 55%;"
-              />
-            </div>
+            <div class="menu-card-watermark" aria-hidden="true">levant breakfast</div>
             <div class="menu-card-body">
               <span class="label">All Day</span>
               <h3>Levant Breakfast</h3>
@@ -566,25 +557,28 @@ import Base from '../layouts/Base.astro';
         <div class="reviews-header" data-reveal>
           <h2 id="reviews-heading" class="reviews-heading">What people say.</h2>
         </div>
-        <div class="reviews-grid">
+        <div class="reviews-editorial">
 
-          <blockquote class="review" data-reveal data-delay="0">
-            <span class="review-mark" aria-hidden="true">&ldquo;</span>
-            <p class="review-text">Breakfast at &#123; kaif &#125; became a ritual. The laffa, warm and folded, made that morning, is the kind of thing you don&rsquo;t find twice.</p>
+          <!-- Featured pull quote -->
+          <blockquote class="review-featured" data-reveal>
+            <p class="review-featured-text">Breakfast at &#123; kaif &#125; became a ritual. The laffa, warm and folded, made that morning, is the kind of thing you don&rsquo;t find twice.</p>
             <footer><cite class="review-cite">M. Hoffmann, Berlin</cite></footer>
           </blockquote>
 
-          <blockquote class="review" data-reveal data-delay="100">
-            <span class="review-mark" aria-hidden="true">&ldquo;</span>
-            <p class="review-text">They&rsquo;ve taken something as simple as eggs in tomato and made it feel like an occasion. The cold brew rearranged my afternoon.</p>
-            <footer><cite class="review-cite">A. Thornton, London</cite></footer>
-          </blockquote>
+          <!-- Secondary pair -->
+          <div class="reviews-secondary">
+            <blockquote class="review" data-reveal data-delay="0">
+              <span class="review-mark" aria-hidden="true">&ldquo;</span>
+              <p class="review-text">They&rsquo;ve taken something as simple as eggs in tomato and made it feel like an occasion. The cold brew rearranged my afternoon.</p>
+              <footer><cite class="review-cite">A. Thornton, London</cite></footer>
+            </blockquote>
 
-          <blockquote class="review" data-reveal data-delay="200">
-            <span class="review-mark" aria-hidden="true">&ldquo;</span>
-            <p class="review-text">Sat at a corner table for three hours. The hummus, the bay, the pace of it. Nothing quite like it on Phangan.</p>
-            <footer><cite class="review-cite">J. Reuter, Amsterdam</cite></footer>
-          </blockquote>
+            <blockquote class="review" data-reveal data-delay="100">
+              <span class="review-mark" aria-hidden="true">&ldquo;</span>
+              <p class="review-text">Sat at a corner table for three hours. The hummus, the bay, the pace of it. Nothing quite like it on Phangan.</p>
+              <footer><cite class="review-cite">J. Reuter, Amsterdam</cite></footer>
+            </blockquote>
+          </div>
 
         </div>
       </div>
@@ -776,7 +770,7 @@ import Base from '../layouts/Base.astro';
           gsap.set(placeTextWrap, { clipPath: 'inset(0 0 0 100%)' });
 
           const splitRevealTl = gsap.timeline({
-            scrollTrigger: { trigger: '.place-inner', start: 'top 72%' },
+            scrollTrigger: { trigger: '.place-inner', start: 'top 88%' },
             onComplete: () => {
               placeImgWrap.style.removeProperty('will-change');
               placeTextWrap.style.removeProperty('will-change');
@@ -805,13 +799,13 @@ import Base from '../layouts/Base.astro';
           // Wrap each word in white-space:nowrap so inline-block chars can't break mid-word
           heading.innerHTML = text.split(' ').map(word =>
             `<span style="display:inline-block;white-space:nowrap">${[...word].map(char =>
-              `<span aria-hidden="true" class="char-k" style="display:inline-block;opacity:0;transform:translateY(18px)">${char}</span>`
+              `<span aria-hidden="true" class="char-k" style="display:inline-block">${char}</span>`
             ).join('')}</span>`
-          ).join('<span aria-hidden="true" style="display:inline-block;opacity:0;transform:translateY(18px)" class="char-k">&nbsp;</span>');
+          ).join('<span aria-hidden="true" style="display:inline-block" class="char-k">&nbsp;</span>');
 
-          gsap.to(heading.querySelectorAll<HTMLElement>('.char-k'), {
-            opacity: 1,
-            y: 0,
+          gsap.from(heading.querySelectorAll<HTMLElement>('.char-k'), {
+            opacity: 0,
+            y: 18,
             duration: 0.55,
             ease: 'expo.out',
             stagger: 0.024,
