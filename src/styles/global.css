@@ -1147,8 +1147,14 @@ address { font-style: normal; }
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.menu-item:hover .menu-item-name::after {
+.menu-item:hover .menu-item-name::after,
+.menu-item.is-scroll-active .menu-item-name::after {
   transform: scaleX(1);
+}
+
+.menu-item.is-scroll-active .menu-item-name {
+  color: var(--navy-deep);
+  transition: color 0.3s ease;
 }
 
 .menu-item-desc {

@@ -849,6 +849,23 @@ import Base from '../layouts/Base.astro';
       }
     };
 
+    // Mobile scroll highlight — triggers hover effect as items enter viewport
+    if (window.matchMedia('(max-width: 960px)').matches &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const scrollHighlightIO = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const item = entry.target as HTMLElement;
+            item.classList.add('is-scroll-active');
+            setTimeout(() => item.classList.remove('is-scroll-active'), 1100);
+          });
+        },
+        { threshold: 0.4, rootMargin: '0px 0px -60px 0px' }
+      );
+      document.querySelectorAll('.menu-item').forEach((item) => scrollHighlightIO.observe(item));
+    }
+
     menuTabs.forEach((tab, idx) => {
       tab.addEventListener('click', () => activateTab(tab));
 
