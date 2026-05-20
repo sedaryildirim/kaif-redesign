@@ -332,6 +332,33 @@ const jsonLd = JSON.stringify({
           setTimeout(() => ripple.remove(), 750);
         });
       }
+
+      // Live weather — Chaloklum Bay, Koh Phangan via Open-Meteo (no API key)
+      {
+        const weatherEl = document.querySelector<HTMLElement>('.hero-weather');
+        if (weatherEl) {
+          const CONDITIONS: Record<number, [string, string]> = {
+            0: ['Clear skies', ''],        1: ['Mostly clear', ''],
+            2: ['Partly cloudy', 'cloud'], 3: ['Overcast', 'cloud'],
+            45: ['Foggy', 'fog'],          48: ['Foggy', 'fog'],
+            51: ['Light drizzle', 'rain'], 53: ['Drizzle', 'rain'],   55: ['Drizzle', 'rain'],
+            61: ['Light rain', 'rain'],    63: ['Rain', 'rain'],       65: ['Heavy rain', 'rain'],
+            80: ['Light showers', 'rain'], 81: ['Showers', 'rain'],    82: ['Heavy showers', 'rain'],
+            95: ['Thunderstorm', 'storm'], 96: ['Thunderstorm', 'storm'], 99: ['Thunderstorm', 'storm'],
+          };
+          fetch('https://api.open-meteo.com/v1/forecast?latitude=9.9476&longitude=100.0394&current=temperature_2m,weather_code&timezone=Asia%2FBangkok')
+            .then((r) => r.ok ? r.json() : Promise.reject())
+            .then((d) => {
+              const temp  = Math.round(d.current.temperature_2m);
+              const code  = Number(d.current.weather_code);
+              const [label, wx] = CONDITIONS[code] ?? ['Clear skies', ''];
+              weatherEl.textContent = `${temp}°C · ${label}`;
+              if (wx) weatherEl.setAttribute('data-wx', wx);
+              weatherEl.classList.add('is-loaded');
+            })
+            .catch(() => {});
+        }
+      }
     </script>
   </body>
 </html>
