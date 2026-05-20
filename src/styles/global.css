@@ -10,7 +10,7 @@
 
   /* ── Text ── */
   --navy:       oklch(24% 0.03 245);       /* deep slate-navy — primary text */
-  --navy-muted: oklch(44% 0.025 240);      /* mid-tone coastal — secondary text (WCAG AA on stone) */
+  --navy-muted: oklch(39% 0.025 240);      /* mid-tone coastal — secondary text (WCAG AA on stone) */
   --navy-deep:  oklch(18% 0.022 245);      /* darkest navy — hover states */
 
   /* ── Color One: Sun-Gold ── */
@@ -1073,6 +1073,14 @@ address { font-style: normal; }
 
 .menu-full-header {
   margin-block-end: clamp(2rem, 3.5vw, 3rem);
+}
+
+.menu-allergen-note {
+  margin-block-start: 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--navy-muted);
+  max-inline-size: 56ch;
+  line-height: 1.5;
 }
 
 .menu-full-header h2 {
