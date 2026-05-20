@@ -545,22 +545,34 @@ import Base from '../layouts/Base.astro';
 
           <!-- Featured pull quote -->
           <blockquote class="review-featured" data-reveal>
-            <p class="review-featured-text">Breakfast at &#123; kaif &#125; became a ritual. The laffa, warm and folded, made that morning, is the kind of thing you don&rsquo;t find twice.</p>
-            <footer><cite class="review-cite">M. Hoffmann, Berlin</cite></footer>
+            <p class="review-featured-text">Our brunch experience was the best we had on the island. Quality ingredients, relaxing vibe, and friendly staff.</p>
+            <footer><cite class="review-cite">Fran W. &mdash; Local Guide</cite></footer>
           </blockquote>
 
-          <!-- Secondary pair -->
+          <!-- Secondary grid -->
           <div class="reviews-secondary">
             <blockquote class="review" data-reveal data-delay="0">
               <span class="review-mark" aria-hidden="true">&ldquo;</span>
-              <p class="review-text">They&rsquo;ve taken something as simple as eggs in tomato and made it feel like an occasion. The cold brew rearranged my afternoon.</p>
-              <footer><cite class="review-cite">A. Thornton, London</cite></footer>
+              <p class="review-text">Beautifully decorated, bright, open to the ocean &mdash; airy, with the breeze coming through. The service, the presentation of the dishes: everything made us happy.</p>
+              <footer><cite class="review-cite">Maria &mdash; Local Guide</cite></footer>
             </blockquote>
 
-            <blockquote class="review" data-reveal data-delay="100">
+            <blockquote class="review" data-reveal data-delay="80">
               <span class="review-mark" aria-hidden="true">&ldquo;</span>
-              <p class="review-text">Sat at a corner table for three hours. The hummus, the bay, the pace of it. Nothing quite like it on Phangan.</p>
-              <footer><cite class="review-cite">J. Reuter, Amsterdam</cite></footer>
+              <p class="review-text">The view is second to none. You can choose how close you want to sit to the water&rsquo;s edge. The food was good and the welcome was genuine.</p>
+              <footer><cite class="review-cite">Martin &mdash; Local Guide</cite></footer>
+            </blockquote>
+
+            <blockquote class="review" data-reveal data-delay="160">
+              <span class="review-mark" aria-hidden="true">&ldquo;</span>
+              <p class="review-text">A beautiful spot right by the sea with a relaxed, stylish vibe. Gourmet-level food at very reasonable prices. If you&rsquo;re in Koh Phangan, don&rsquo;t miss this place.</p>
+              <footer><cite class="review-cite">Francisca M. &mdash; Local Guide</cite></footer>
+            </blockquote>
+
+            <blockquote class="review" data-reveal data-delay="240">
+              <span class="review-mark" aria-hidden="true">&ldquo;</span>
+              <p class="review-text">We visited twice and the coffee was excellent every single time. The ladies at the coffee bar are incredibly warm and welcoming.</p>
+              <footer><cite class="review-cite">Aurea B. &mdash; Local Guide</cite></footer>
             </blockquote>
           </div>
 
@@ -754,32 +766,34 @@ import Base from '../layouts/Base.astro';
       // ── Kinetic heading character stagger ─────────────────────────────────────
       if (!isMobile) {
         const kineticTargets: Array<{ sel: string; start: string; delay: number }> = [
-          { sel: '#place-heading',   start: 'top 75%', delay: 0.65 },
-          { sel: '#menu-heading',    start: 'top 78%', delay: 0    },
-          { sel: '.reviews-heading', start: 'top 78%', delay: 0    },
-          { sel: '#findus-heading',  start: 'top 78%', delay: 0    },
+          { sel: '#place-heading',     start: 'top 75%', delay: 0.65 },
+          { sel: '#menu-heading',      start: 'top 78%', delay: 0    },
+          { sel: '.menu-card-body h3', start: 'top 80%', delay: 0    },
+          { sel: '#full-menu-heading', start: 'top 78%', delay: 0    },
+          { sel: '.reviews-heading',   start: 'top 78%', delay: 0    },
+          { sel: '#findus-heading',    start: 'top 78%', delay: 0    },
         ];
 
         kineticTargets.forEach(({ sel, start, delay }) => {
-          const heading = document.querySelector<HTMLElement>(sel);
-          if (!heading) return;
-          const text = heading.textContent ?? '';
-          heading.setAttribute('aria-label', text);
-          // Wrap each word in white-space:nowrap so inline-block chars can't break mid-word
-          heading.innerHTML = text.split(' ').map(word =>
-            `<span style="display:inline-block;white-space:nowrap">${[...word].map(char =>
-              `<span aria-hidden="true" class="char-k" style="display:inline-block">${char}</span>`
-            ).join('')}</span>`
-          ).join('<span aria-hidden="true" style="display:inline-block" class="char-k">&nbsp;</span>');
+          document.querySelectorAll<HTMLElement>(sel).forEach((heading) => {
+            const text = heading.textContent ?? '';
+            heading.setAttribute('aria-label', text);
+            // Wrap each word in white-space:nowrap so inline-block chars can't break mid-word
+            heading.innerHTML = text.split(' ').map(word =>
+              `<span style="display:inline-block;white-space:nowrap">${[...word].map(char =>
+                `<span aria-hidden="true" class="char-k" style="display:inline-block">${char}</span>`
+              ).join('')}</span>`
+            ).join('<span aria-hidden="true" style="display:inline-block" class="char-k">&nbsp;</span>');
 
-          gsap.from(heading.querySelectorAll<HTMLElement>('.char-k'), {
-            opacity: 0,
-            y: 18,
-            duration: 0.55,
-            ease: 'expo.out',
-            stagger: 0.024,
-            delay,
-            scrollTrigger: { trigger: heading, start },
+            gsap.from(heading.querySelectorAll<HTMLElement>('.char-k'), {
+              opacity: 0,
+              y: 18,
+              duration: 0.75,
+              ease: 'expo.out',
+              stagger: 0.038,
+              delay,
+              scrollTrigger: { trigger: heading, start },
+            });
           });
         });
       }

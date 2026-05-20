@@ -254,6 +254,54 @@ const jsonLd = JSON.stringify({
         });
       }
 
+      // Mobile menu scroll highlight — center-viewport item gets is-scroll-active
+      {
+        const mq = window.matchMedia('(max-width: 767px)');
+        let scrollActiveItem: HTMLElement | null = null;
+
+        const updateMenuHighlight = () => {
+          if (!mq.matches) {
+            if (scrollActiveItem) {
+              scrollActiveItem.classList.remove('is-scroll-active');
+              scrollActiveItem = null;
+            }
+            return;
+          }
+          const panel = document.querySelector<HTMLElement>('.menu-panel.is-active');
+          const items = Array.from((panel ?? document).querySelectorAll<HTMLElement>('.menu-item'));
+          if (!items.length) return;
+
+          const midY = window.innerHeight / 2;
+          let closest: HTMLElement | null = null;
+          let closestDist = Infinity;
+
+          items.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            if (rect.height === 0) return;
+            const dist = Math.abs(rect.top + rect.height / 2 - midY);
+            if (dist < closestDist) { closestDist = dist; closest = el; }
+          });
+
+          if (closest !== scrollActiveItem) {
+            if (scrollActiveItem) scrollActiveItem.classList.remove('is-scroll-active');
+            if (closest) (closest as HTMLElement).classList.add('is-scroll-active');
+            scrollActiveItem = closest;
+          }
+        };
+
+        window.addEventListener('scroll', updateMenuHighlight, { passive: true });
+        mq.addEventListener('change', updateMenuHighlight);
+
+        // Re-run when tabs switch so highlight tracks the active panel
+        document.addEventListener('click', (e) => {
+          if ((e.target as HTMLElement)?.closest('.menu-tab')) {
+            requestAnimationFrame(updateMenuHighlight);
+          }
+        });
+
+        updateMenuHighlight();
+      }
+
       // Easter egg: type "kaif" anywhere on the page to pulse the braces
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         let seq = '';
