@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "bugs": [
+    {
+      "id": "bug-001",
+      "timestamp": "2026-05-19T19:08:00Z",
+      "error_message": "kaif is not defined — Astro build/runtime error, site blank",
+      "file": "src/pages/index.astro",
+      "root_cause": "Astro treats { } as JS expression slots. Inserting literal text '{ Kaif }' causes Astro to evaluate 'Kaif' as a JS identifier, which is not declared.",
+      "fix": "Replaced '{ Kaif }' with '&#123; Kaif &#125;' (HTML entities) in lines 221 and 234 of index.astro. Logo uses <span class=logo-brace> technique which also avoids the issue.",
+      "tags": ["astro", "template", "expression-slot", "html-entities"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-19T19:08:00Z"
+    }
+  ]
+}

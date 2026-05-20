@@ -1,0 +1,130 @@
+{
+  "/Users/sedaryildirim/Desktop/kaif-redesign/astro.config.mjs": {
+    "mtime": 1779181253.6051586,
+    "hash": "882aa372d601658833cd72181f4672fd"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/src/env.d.ts": {
+    "mtime": 1779181255.3889937,
+    "hash": "1dd7153244f921edac1f1d04155b52b1"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/src/layouts/Base.astro": {
+    "mtime": 1779242718.2306435,
+    "hash": "b1279fa32e9d635492eae2d2d6b868b2"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/src/pages/index.astro": {
+    "mtime": 1779243029.8211722,
+    "hash": "3a685d7e8d848a3d2fa7bfaf35161d67"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/PRODUCT.md": {
+    "mtime": 1779180742.194528,
+    "hash": "c0de0edf03e39ed88327ad982d24e264"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/DESIGN.md": {
+    "mtime": 1779180621.562737,
+    "hash": "072a0fc9e00c572afb4f55ee31fbbe2c"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/CLAUDE.md": {
+    "mtime": 1779180124.7584393,
+    "hash": "ede6ff7d28783daceb46bc39464677c0"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/README.md": {
+    "mtime": 1775910389.0,
+    "hash": "c65422e54f7075d0b367088a8747e1a6"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/SKILL.md": {
+    "mtime": 1776006081.0,
+    "hash": "242010fa5081fb9158e51a298816122c"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/quiet-luxury/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "82c79f22e1b99727561b7cee4bf2a987"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/minimalism/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "342fbe406d74dada9d4567f7854040e6"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/warm-modern/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "88dc1de4a45cd9122bf0062212e5b9b7"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/dark-luxe/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "147af86049e353147c999fb007051a00"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/components/style-recipes.md": {
+    "mtime": 1775907867.0,
+    "hash": "a3751295214a8882cfa11ae46f9dc5e1"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/components/aceternity-ui.md": {
+    "mtime": 1775907256.0,
+    "hash": "40ee5e1646c5f8fe4e99d4e1325d5523"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/components/gsap-explore.md": {
+    "mtime": 1775907255.0,
+    "hash": "47bc4f955d31751db14cf12dc176124f"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/components/README.md": {
+    "mtime": 1775907256.0,
+    "hash": "ba7893efe2c7606872c4e77dc97d4537"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/components/reactbits.md": {
+    "mtime": 1775907256.0,
+    "hash": "3222aba529bafaa4285d7525588fd0b2"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/components/21st-community.md": {
+    "mtime": 1775907256.0,
+    "hash": "0178f8ed93bed92b2b32fe0cbcb0ff1a"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/soft/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "1e67068b83acad05982e968615d18f95"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/dashboards/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "82b889337c17cbfff1be7bbd07005d7c"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/monochrome-modern/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "9f70ebfbcf32d07871ac8d710a83725c"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/premium-bento/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "15d2ea3b26f04af0c0544672c7b947c3"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/gallery-minimal/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "82bf1b94dfb4ff67df86791d8e670703"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/editorial-premium/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "72e62989162061c0fedbbc5dfbd64a16"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/cinematic-product/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "dfd995d3efb645f508a0ca5e640fb3d1"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/swiss-system/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "9e9802f2626910e0e20a7a130ac6c28d"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/soft-brutalism/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "c46f09c5e1fa8a5ede2555c8d838bc57"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/taste-skill/brutalism/skill.md": {
+    "mtime": 1775918917.0,
+    "hash": "d241becf940b810a7473a360c73a4440"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/public/favicon.svg": {
+    "mtime": 1779181256.8477461,
+    "hash": "8bbb44f1ad04f8045abc6b6815862443"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/public/assets/kaif-interior-shot.jpg": {
+    "mtime": 1779182188.8183815,
+    "hash": "5efe7c3c107baf5132164a0712209a47"
+  },
+  "/Users/sedaryildirim/Desktop/kaif-redesign/public/assets/kaif-hero-image.jpg": {
+    "mtime": 1779182172.645155,
+    "hash": "5ef4db03bef7b85caa2c5097f9b259f0"
+  }
+}

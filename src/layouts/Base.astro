@@ -1,0 +1,192 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = '{ kaif } — Chaloklum Bay, Koh Phangan',
+  description = 'A beachside restaurant and bar on Koh Phangan. Levantine soul food made from scratch, daily. Open 8AM to 8PM.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts: Alegreya (display) + Hanken Grotesk (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <slot />
+
+    <script>
+      // Time-of-day hero eyebrow (Koh Phangan = UTC+7)
+      const eyebrow = document.querySelector<HTMLElement>('.hero-eyebrow');
+      const utc7Hour = (new Date().getUTCHours() + 7) % 24;
+      if (eyebrow) {
+        const dot = '·';
+        if (utc7Hour >= 8 && utc7Hour < 20) {
+          eyebrow.textContent = `Open now ${dot} Chaloklum Bay ${dot} Koh Phangan`;
+        } else if (utc7Hour >= 5 && utc7Hour < 8) {
+          eyebrow.textContent = `Opening at 8 AM ${dot} Chaloklum Bay ${dot} Koh Phangan`;
+        }
+      }
+
+      // Time-of-day hero scrim warmth — amber in golden hour, cooler at bright midday
+      const heroScrim = document.querySelector<HTMLElement>('.hero-scrim');
+      if (heroScrim) {
+        if (utc7Hour >= 16 && utc7Hour < 20) heroScrim.classList.add('hero-scrim--golden');
+        else if (utc7Hour >= 10 && utc7Hour < 15) heroScrim.classList.add('hero-scrim--bright');
+      }
+
+      // Developer console easter egg
+      console.log(
+        '%c{ Kaif }',
+        'font-family: Georgia, serif; font-size: 1.5rem; color: #4a8a8c; padding: 8px 0;'
+      );
+      console.log(
+        '%cكَيف · Arabic: a state of pure bliss and deep pleasure.\nBeing exactly where you are meant to be.\n\nChaloklum Bay · Koh Phangan · Thailand\nOpen daily 8AM – 8PM',
+        'color: #1e2d4a; font-style: italic; font-size: 0.875rem; line-height: 1.7;'
+      );
+
+      // Scroll reveal via IntersectionObserver
+      const revealEls = document.querySelectorAll('[data-reveal]');
+      if (revealEls.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const el = entry.target as HTMLElement;
+              const delay = Number(el.dataset.delay ?? 0);
+              setTimeout(() => el.classList.add('is-revealed'), delay);
+              io.unobserve(el);
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -48px 0px' }
+        );
+        revealEls.forEach((el) => io.observe(el));
+      }
+
+      // Nav scroll state
+      const nav = document.querySelector<HTMLElement>('.site-nav');
+      if (nav) {
+        const update = () =>
+          nav.classList.toggle('site-nav--scrolled', window.scrollY > 48);
+        window.addEventListener('scroll', update, { passive: true });
+        update();
+      }
+
+      // Scroll tide — fills as page scrolls, fades when idle; pulses teal on completion
+      const tide = document.querySelector<HTMLElement>('.scroll-tide');
+      if (tide) {
+        let tideTimer: ReturnType<typeof setTimeout>;
+        let tideCompleted = false;
+        window.addEventListener('scroll', () => {
+          const progress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+          tide.style.width = `${Math.min(progress * 100, 100)}%`;
+          tide.classList.add('is-visible');
+          if (progress >= 0.97 && !tideCompleted) {
+            tideCompleted = true;
+            tide.classList.add('scroll-tide--complete');
+            setTimeout(() => tide.classList.remove('scroll-tide--complete'), 1800);
+          }
+          clearTimeout(tideTimer);
+          tideTimer = setTimeout(() => tide.classList.remove('is-visible'), 1400);
+        }, { passive: true });
+      }
+
+      // Back to top
+      const backToTop = document.querySelector<HTMLButtonElement>('#back-to-top');
+      if (backToTop) {
+        const toggleVisible = () => {
+          if (window.scrollY > 400) {
+            backToTop.removeAttribute('hidden');
+          } else {
+            backToTop.setAttribute('hidden', '');
+          }
+        };
+        window.addEventListener('scroll', toggleVisible, { passive: true });
+        toggleVisible();
+        backToTop.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // Nav active section indicator
+      const navSections = document.querySelectorAll<HTMLElement>('section[id]');
+      const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-links a[href^="#"]');
+      if (navSections.length && navLinks.length) {
+        const sectionIO = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const id = (entry.target as HTMLElement).id;
+              navLinks.forEach((a) => {
+                a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`);
+              });
+            });
+          },
+          { threshold: 0.35, rootMargin: '-10% 0px -45% 0px' }
+        );
+        navSections.forEach((s) => sectionIO.observe(s));
+      }
+
+      // Mobile nav toggle
+      const navToggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+      if (navToggle && nav) {
+        navToggle.addEventListener('click', () => {
+          const isOpen = nav.classList.toggle('site-nav--open');
+          navToggle.setAttribute('aria-expanded', String(isOpen));
+          document.body.style.overflow = isOpen ? 'hidden' : '';
+          if (isOpen) {
+            const firstLink = nav.querySelector<HTMLAnchorElement>('.nav-links a');
+            if (firstLink) firstLink.focus();
+          }
+        });
+        nav.querySelectorAll('.nav-links a').forEach((link) => {
+          link.addEventListener('click', () => {
+            nav.classList.remove('site-nav--open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+            navToggle.focus();
+          });
+        });
+      }
+
+      // Easter egg: type "kaif" anywhere on the page to pulse the braces
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        let seq = '';
+        document.addEventListener('keydown', (e) => {
+          const tag = (document.activeElement as HTMLElement)?.tagName;
+          if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+          seq += e.key.toLowerCase();
+          if (seq.length > 4) seq = seq.slice(-4);
+          if (seq === 'kaif') {
+            seq = '';
+            const braces = document.querySelectorAll<HTMLElement>('.logo-brace, .hero-brace');
+            const restore = () => braces.forEach(b => b.style.removeProperty('color'));
+            braces.forEach(b => { b.style.transition = 'color 0.35s ease'; b.style.color = 'var(--gold)'; });
+            setTimeout(() => { braces.forEach(b => b.style.color = 'var(--seafoam)'); }, 380);
+            setTimeout(() => { restore(); braces.forEach(b => b.style.removeProperty('transition')); }, 760);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
