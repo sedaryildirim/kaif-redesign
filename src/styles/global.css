@@ -483,7 +483,7 @@ address { font-style: normal; }
 }
 
 .hero-brace {
-  color: var(--brace-light);
+  color: oklch(100% 0 0);
   font-weight: 500;
   font-style: normal;
 }
