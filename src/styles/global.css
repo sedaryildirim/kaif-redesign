@@ -1426,12 +1426,18 @@ address { font-style: normal; }
   /* Order CTA at bottom of mobile nav panel */
   .nav-order-mobile {
     display: flex;
-    margin-block-start: 2rem;
+    margin-block-start: auto;
+    padding-block-start: 2rem;
+    padding-block-end: 0.5rem;
     width: 100%;
+    border-block-start: 1px solid var(--rule);
   }
   .nav-order-mobile .btn {
     width: 100%;
     justify-content: center;
+    padding-block: 1rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0.06em;
   }
 
   /* ── Hero: revert to centered on mobile ── */
@@ -1563,11 +1569,11 @@ address { font-style: normal; }
   .fact-divider { width: 2.5rem; height: 1px; }
 
   .contact-channel {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr 8rem;
     grid-template-rows: auto auto;
   }
 
-  .contact-channel .btn { width: auto; }
+  .contact-channel .btn { width: 100%; justify-content: center; }
   .contact-channel-platform { grid-column: 1 / -1; }
 }
 
