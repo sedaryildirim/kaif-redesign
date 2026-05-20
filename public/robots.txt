@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sedaryildirim.github.io/kaif-redesign/sitemap-index.xml

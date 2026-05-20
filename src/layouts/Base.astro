@@ -7,9 +7,58 @@ interface Props {
 }
 
 const {
-  title = '{ kaif } — Chaloklum Bay, Koh Phangan',
-  description = 'A beachside restaurant and bar on Koh Phangan. Levantine soul food made from scratch, daily. Open 8AM to 8PM.',
+  title = '{ kaif } — Levantine Soul Food · Chaloklum Bay, Koh Phangan',
+  description = 'Kaif is a beachside restaurant on Koh Phangan serving Levantine soul food made from scratch, daily. Fresh mezze, slow-cooked dishes, and handmade breads. Open 8AM–8PM, Chaloklum Bay.',
 } = Astro.props;
+
+const SITE = 'https://sedaryildirim.github.io/kaif-redesign';
+const ogImage = `${SITE}/assets/kaif-hero-image.webp`;
+const canonicalURL = `${SITE}/`;
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  name: 'Kaif',
+  alternateName: '{ kaif }',
+  description: 'Beachside Levantine restaurant in Chaloklum Bay, Koh Phangan. Soul food made from scratch: mezze, slow-cooked mains, handmade breads. Open daily 8AM–8PM.',
+  url: canonicalURL,
+  image: ogImage,
+  servesCuisine: ['Levantine', 'Middle Eastern', 'Mediterranean'],
+  priceRange: '$$',
+  currenciesAccepted: 'THB',
+  paymentAccepted: 'Cash, Credit Card',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '97/2 Moo 7',
+    addressLocality: 'Ko Pha-ngan',
+    addressRegion: 'Surat Thani',
+    postalCode: '84280',
+    addressCountry: 'TH',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 9.9476,
+    longitude: 100.0394,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '08:00',
+      closes: '20:00',
+    },
+  ],
+  sameAs: [
+    'https://www.instagram.com/kaifphangan',
+    'https://www.facebook.com/kaifphangan',
+  ],
+  amenityFeature: [
+    { '@type': 'LocationFeatureSpecification', name: 'Beachside seating', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Outdoor seating', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Vegetarian options', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Vegan options', value: true },
+  ],
+});
 ---
 
 <!doctype html>
@@ -17,10 +66,43 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary meta -->
+    <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content="Kaif, Koh Phangan restaurant, Levantine food Thailand, Chaloklum Bay, Middle Eastern food Koh Phangan, beachside restaurant, mezze, soul food, halal-friendly, vegan options Koh Phangan" />
+    <meta name="author" content="Kaif Restaurant" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:site_name" content="Kaif" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <title>{title}</title>
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Kaif restaurant, Chaloklum Bay, Koh Phangan — beachside Levantine soul food" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Kaif restaurant, Chaloklum Bay, Koh Phangan" />
+
+    <!-- Geo targeting -->
+    <meta name="geo.region" content="TH-84" />
+    <meta name="geo.placename" content="Chaloklum Bay, Ko Pha-ngan, Thailand" />
+    <meta name="geo.position" content="9.9476;100.0394" />
+    <meta name="ICBM" content="9.9476, 100.0394" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
 
     <!-- Fonts: Alegreya (display) + Hanken Grotesk (body) -->
@@ -30,6 +112,9 @@ const {
       href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json" set:html={jsonLd} />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
