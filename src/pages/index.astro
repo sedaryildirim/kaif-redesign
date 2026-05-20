@@ -686,28 +686,6 @@ import Base from '../layouts/Base.astro';
     const isMobile = window.matchMedia('(max-width: 960px)').matches;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // ── Mobile nav toggle ────────────────────────────────────────────
-    const siteNav  = document.querySelector<HTMLElement>('.site-nav');
-    const navToggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
-    const navLinks  = document.querySelector<HTMLElement>('.nav-links');
-    if (siteNav && navToggle) {
-      navToggle.addEventListener('click', () => {
-        const isOpen = siteNav.classList.toggle('site-nav--open');
-        navToggle.setAttribute('aria-expanded', String(isOpen));
-        navToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-      });
-      // Close on nav link click
-      navLinks?.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-          siteNav.classList.remove('site-nav--open');
-          navToggle.setAttribute('aria-expanded', 'false');
-          navToggle.setAttribute('aria-label', 'Open navigation');
-          document.body.style.overflow = '';
-        });
-      });
-    }
-
     // ── Hero cursor glow ─────────────────────────────────────────────
     if (!isMobile && !prefersReducedMotion) {
       const heroEl   = document.querySelector<HTMLElement>('.hero');
