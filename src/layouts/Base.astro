@@ -352,9 +352,25 @@ const jsonLd = JSON.stringify({
               const temp  = Math.round(d.current.temperature_2m);
               const code  = Number(d.current.weather_code);
               const [label, wx] = CONDITIONS[code] ?? ['Clear skies', ''];
-              weatherEl.textContent = `${temp}°C · ${label}`;
+              const staticText = document.createElement('span');
+              staticText.textContent = `${temp}°C · ${label} · `;
+              const timeEl = document.createElement('time');
+              weatherEl.append(staticText, timeEl);
               if (wx) weatherEl.setAttribute('data-wx', wx);
               weatherEl.classList.add('is-loaded');
+
+              const tick = () => {
+                const now = new Date();
+                const h24 = (now.getUTCHours() + 7) % 24;
+                const min = now.getUTCMinutes();
+                const h12 = h24 % 12 || 12;
+                const mm  = String(min).padStart(2, '0');
+                const ap  = h24 >= 12 ? 'PM' : 'AM';
+                timeEl.textContent = `${h12}:${mm} ${ap}`;
+                timeEl.setAttribute('datetime', `${String(h24).padStart(2, '0')}:${mm}`);
+              };
+              tick();
+              setInterval(tick, 30_000);
             })
             .catch(() => {});
         }
