@@ -1,11 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
-
-/*
- * Image note: all photography uses picsum.photos placeholders.
- * Place real Kaif photography in public/assets/images/ and update src attributes.
- * Each placeholder uses a seed for consistent builds.
- */
+import { Picture } from 'astro:assets';
+import heroImg from '../assets/kaif-hero-image.jpg';
+import interiorImg from '../assets/kaif-interior-shot.jpg';
 ---
 
 <Base>
@@ -51,12 +48,13 @@ import Base from '../layouts/Base.astro';
 
       <!-- Full-bleed background image -->
       <div class="hero-img-wrap" aria-hidden="true">
-        <img
+        <Picture
           class="hero-img"
-          src={`${import.meta.env.BASE_URL}assets/kaif-hero-image.webp`}
+          src={heroImg}
+          formats={['avif', 'webp']}
+          widths={[600, 900, 1100]}
+          sizes="100vw"
           alt=""
-          width="1600"
-          height="900"
           loading="eager"
           fetchpriority="high"
         />
@@ -113,11 +111,12 @@ import Base from '../layouts/Base.astro';
     <section class="section-place" id="about" aria-labelledby="place-heading">
       <div class="place-inner">
         <div class="place-img-wrap" data-reveal="fade">
-          <img
-            src={`${import.meta.env.BASE_URL}assets/kaif-interior-shot.webp`}
+          <Picture
+            src={interiorImg}
+            formats={['avif', 'webp']}
+            widths={[600, 900, 1100]}
+            sizes="(max-width: 768px) 100vw, 50vw"
             alt="Kaif interior, warm light and tables by the water on Chaloklum Bay"
-            width="1600"
-            height="900"
             loading="lazy"
           />
         </div>
@@ -641,11 +640,12 @@ import Base from '../layouts/Base.astro';
           </div>
 
           <div class="findus-img-wrap" data-reveal="from-right" data-delay="120">
-            <img
-              src={`${import.meta.env.BASE_URL}assets/kaif-hero-image.webp`}
+            <Picture
+              src={heroImg}
+              formats={['avif', 'webp']}
+              widths={[400, 800, 1100]}
+              sizes="(max-width: 768px) 100vw, 40vw"
               alt="Chaloklum Bay and the pier, Koh Phangan"
-              width="800"
-              height="600"
               loading="lazy"
             />
           </div>
