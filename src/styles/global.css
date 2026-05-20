@@ -1358,7 +1358,6 @@ address { font-style: normal; }
 
 @media (max-width: 960px) {
   /* ── Nav: hamburger replaces horizontal links ── */
-  .btn-nav { display: none; }
 
   .nav-toggle {
     display: flex;
