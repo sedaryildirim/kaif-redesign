@@ -605,12 +605,15 @@ address { font-style: normal; }
   align-items: center;
   gap: 0.45rem;
   margin-block-start: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.07em;
-  color: oklch(97% 0.005 90 / 0.48);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: oklch(97% 0.005 90 / 0.52);
   opacity: 0;
   transition: opacity 1s ease;
+}
+.hero-weather time {
+  font-weight: 500;
 }
 .hero-weather.is-loaded { opacity: 1; }
 .hero-weather::before {
