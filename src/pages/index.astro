@@ -122,7 +122,8 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
           />
         </div>
         <div class="place-text" data-reveal data-delay="80">
-          <h2 id="place-heading">A seat at the edge of the bay.</h2>
+          <span class="label">About</span>
+          <h2 id="place-heading">Where the island slows down.</h2>
           <p>
             White umbrellas, the Chaloklum pier to your right, water in every
             direction. &#123; kaif &#125; sits directly on the shore of one of Koh Phangan's
@@ -167,6 +168,15 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
               <span class="label">All Day</span>
               <h3>Levant Breakfast</h3>
               <p>House hummus, Israeli salad, labneh, olives, soft-boiled egg, and fresh laffa.</p>
+            </div>
+          </article>
+
+          <article class="menu-card" data-reveal data-delay="160" aria-label="Hummus Bowl">
+            <div class="menu-card-watermark" aria-hidden="true">hummus bowl</div>
+            <div class="menu-card-body">
+              <span class="label">All Day</span>
+              <h3>Hummus Bowl</h3>
+              <p>Slow-cooked chickpeas on silky hummus, drizzled with olive oil and dukkah. Served with warm laffa.</p>
             </div>
           </article>
         </div>
@@ -546,7 +556,7 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
           <!-- Featured pull quote -->
           <blockquote class="review-featured" data-reveal>
             <p class="review-featured-text">Our brunch experience was the best we had on the island. Quality ingredients, relaxing vibe, and friendly staff.</p>
-            <footer><cite class="review-cite">Fran W. &middot; Local Guide</cite></footer>
+            <footer><cite class="review-cite">Fran W. &middot; Australia</cite><span class="review-source">Google Review</span></footer>
           </blockquote>
 
           <!-- Secondary grid -->
@@ -554,25 +564,25 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
             <blockquote class="review" data-reveal data-delay="0">
               <span class="review-mark" aria-hidden="true">&ldquo;</span>
               <p class="review-text">Beautifully decorated, bright, open to the ocean, airy, with the breeze coming through. The service, the presentation of the dishes: everything made us happy.</p>
-              <footer><cite class="review-cite">Maria &middot; Local Guide</cite></footer>
+              <footer><cite class="review-cite">Maria &middot; Spain</cite><span class="review-source">Google Review</span></footer>
             </blockquote>
 
             <blockquote class="review" data-reveal data-delay="80">
               <span class="review-mark" aria-hidden="true">&ldquo;</span>
               <p class="review-text">The view is second to none. You can choose how close you want to sit to the water&rsquo;s edge. The food was good and the welcome was genuine.</p>
-              <footer><cite class="review-cite">Martin &middot; Local Guide</cite></footer>
+              <footer><cite class="review-cite">Martin &middot; United Kingdom</cite><span class="review-source">Google Review</span></footer>
             </blockquote>
 
             <blockquote class="review" data-reveal data-delay="160">
               <span class="review-mark" aria-hidden="true">&ldquo;</span>
               <p class="review-text">A beautiful spot right by the sea with a relaxed, stylish vibe. Gourmet-level food at very reasonable prices. If you&rsquo;re in Koh Phangan, don&rsquo;t miss this place.</p>
-              <footer><cite class="review-cite">Francisca M. &middot; Local Guide</cite></footer>
+              <footer><cite class="review-cite">Francisca M. &middot; Brazil</cite><span class="review-source">Google Review</span></footer>
             </blockquote>
 
             <blockquote class="review" data-reveal data-delay="240">
               <span class="review-mark" aria-hidden="true">&ldquo;</span>
               <p class="review-text">We visited twice and the coffee was excellent every single time. The ladies at the coffee bar are incredibly warm and welcoming.</p>
-              <footer><cite class="review-cite">Aurea B. &middot; Local Guide</cite></footer>
+              <footer><cite class="review-cite">Aurea B. &middot; Portugal</cite><span class="review-source">Google Review</span></footer>
             </blockquote>
           </div>
 
@@ -663,12 +673,10 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
     import gsap from 'gsap';
     import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-    gsap.registerPlugin(ScrollTrigger);
-
     const isMobile = window.matchMedia('(max-width: 960px)').matches;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // ── Hero cursor glow ─────────────────────────────────────────────
+    // ── Hero cursor glow — immediate, no GSAP needed ─────────────────
     if (!isMobile && !prefersReducedMotion) {
       const heroEl   = document.querySelector<HTMLElement>('.hero');
       const heroGlow = document.querySelector<HTMLElement>('.hero-cursor-glow');
@@ -684,8 +692,11 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
       }
     }
 
-    // ── Scroll parallax — skipped if user prefers reduced motion ────
-    if (!prefersReducedMotion) {
+    // ── Scroll animations — deferred until idle or first scroll ──────
+    function initScrollAnimations() {
+      if (prefersReducedMotion) return;
+      gsap.registerPlugin(ScrollTrigger);
+
       const heroImg = document.querySelector<HTMLElement>('.hero-img');
       if (heroImg && !isMobile) {
         heroImg.style.willChange = 'transform';
@@ -798,6 +809,20 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
           });
         });
       }
+    }
+
+    let scrollAnimsReady = false;
+    function triggerScrollAnimsOnce() {
+      if (scrollAnimsReady) return;
+      scrollAnimsReady = true;
+      initScrollAnimations();
+    }
+
+    window.addEventListener('scroll', triggerScrollAnimsOnce, { passive: true, once: true });
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(triggerScrollAnimsOnce, { timeout: 1500 });
+    } else {
+      setTimeout(triggerScrollAnimsOnce, 300);
     }
   </script>
 
@@ -933,11 +958,14 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
         <nav class="footer-nav" aria-label="Footer links">
           <a href="https://www.instagram.com/kaifphangan" target="_blank" rel="noopener">Instagram</a>
           <a href="https://www.facebook.com/kaifphangan" target="_blank" rel="noopener">Facebook</a>
-          <button class="footer-legal-btn" data-modal="privacy">Privacy Policy</button>
-          <button class="footer-legal-btn" data-modal="terms">Terms &amp; Conditions</button>
         </nav>
         <p class="footer-meta">
-          Chaloklum Bay &middot; Koh Phangan &middot; Thailand &middot; Open daily 8AM &ndash; 8PM
+          Open daily, 8AM to 8PM. Come find us at Chaloklum Bay.
+        </p>
+        <p class="footer-legal-row">
+          <button class="footer-legal-btn" data-modal="privacy">Privacy Policy</button>
+          <span aria-hidden="true">&middot;</span>
+          <button class="footer-legal-btn" data-modal="terms">Terms &amp; Conditions</button>
         </p>
       </div>
     </div>

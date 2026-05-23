@@ -64,6 +64,7 @@ const jsonLd = JSON.stringify({
 <!doctype html>
 <html lang="en">
   <head>
+    <script>document.documentElement.classList.add('js');</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -168,21 +169,16 @@ const jsonLd = JSON.stringify({
         revealEls.forEach((el) => io.observe(el));
       }
 
-      // Nav scroll state
+      // Nav / tide / back-to-top — single merged passive scroll handler
       const nav = document.querySelector<HTMLElement>('.site-nav');
-      if (nav) {
-        const update = () =>
-          nav.classList.toggle('site-nav--scrolled', window.scrollY > 48);
-        window.addEventListener('scroll', update, { passive: true });
-        update();
-      }
-
-      // Scroll tide — fills as page scrolls, fades when idle; pulses teal on completion
       const tide = document.querySelector<HTMLElement>('.scroll-tide');
-      if (tide) {
-        let tideTimer: ReturnType<typeof setTimeout>;
-        let tideCompleted = false;
-        window.addEventListener('scroll', () => {
+      const backToTop = document.querySelector<HTMLButtonElement>('#back-to-top');
+      let tideTimer: ReturnType<typeof setTimeout>;
+      let tideCompleted = false;
+
+      const onScroll = () => {
+        if (nav) nav.classList.toggle('site-nav--scrolled', window.scrollY > 48);
+        if (tide) {
           const progress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
           tide.style.width = `${Math.min(progress * 100, 100)}%`;
           tide.classList.add('is-visible');
@@ -193,21 +189,19 @@ const jsonLd = JSON.stringify({
           }
           clearTimeout(tideTimer);
           tideTimer = setTimeout(() => tide.classList.remove('is-visible'), 1400);
-        }, { passive: true });
-      }
-
-      // Back to top
-      const backToTop = document.querySelector<HTMLButtonElement>('#back-to-top');
-      if (backToTop) {
-        const toggleVisible = () => {
+        }
+        if (backToTop) {
           if (window.scrollY > 400) {
             backToTop.removeAttribute('hidden');
           } else {
             backToTop.setAttribute('hidden', '');
           }
-        };
-        window.addEventListener('scroll', toggleVisible, { passive: true });
-        toggleVisible();
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      if (backToTop) {
         backToTop.addEventListener('click', () => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
@@ -354,33 +348,33 @@ const jsonLd = JSON.stringify({
             const gold = h24 >= 18 && h24 < 20;
 
             if (code <= 1) {
-              if (morn) return `It's ${t} — ${deg} and clear skies. Good morning to eat by the water.`;
-              if (noon) return `${t} — ${deg} and full sun. Made for a slow, long lunch.`;
-              if (aft)  return `${t} — ${deg} and open skies. The terrace is waiting.`;
-              if (gold) return `${t} — ${deg} and golden light. Last seats of the day.`;
-              return `${t} — ${deg} and clear over Chaloklum Bay.`;
+              if (morn) return `${t} · ${deg} and clear. A fine morning to eat by the water.`;
+              if (noon) return `${t} · ${deg} and full sun. The terrace is yours.`;
+              if (aft)  return `${t} · ${deg} and open skies. Come sit outside.`;
+              if (gold) return `${t} · ${deg} and golden over the water. Last seats today.`;
+              return `${t} · ${deg} and clear over Chaloklum Bay.`;
             }
             if (code === 2) {
-              if (morn) return `It's ${t} — ${deg} with light cloud. A gentle morning out on the bay.`;
-              if (aft || noon) return `${t} — ${deg} and partly cloudy. Good shade for a long mezze.`;
-              return `${t} — ${deg} and partly cloudy over the bay.`;
+              if (morn) return `${t} · ${deg} with soft cloud. A gentle morning on the bay.`;
+              if (aft || noon) return `${t} · ${deg} and partly cloudy. Good shade for a long lunch.`;
+              return `${t} · ${deg} and partly cloudy over the bay.`;
             }
             if (code === 3) {
-              return `${t} — ${deg} and overcast. Great conditions for eating slowly.`;
+              return `${t} · ${deg} and overcast. Made for eating slowly.`;
             }
             if (code >= 45 && code <= 48) {
-              return `${t} — ${deg} and foggy on the bay. The kitchen is warm.`;
+              return `${t} · ${deg} and misty on the bay. The kitchen is warm.`;
             }
             if (code >= 51 && code <= 67) {
-              return `${t} — ${deg} and raining. Slow-cooked weather, warm inside.`;
+              return `${t} · ${deg} and raining. Come in, we're open.`;
             }
             if (code >= 80 && code <= 82) {
-              return `${t} — ${deg} with passing showers. Come in, we're open.`;
+              return `${t} · ${deg} with passing showers. Warm inside, we're open.`;
             }
             if (code >= 95) {
-              return `${t} — ${deg} with a storm rolling in. Good shelter and good food.`;
+              return `${t} · ${deg} and stormy. Good shelter, good food.`;
             }
-            return `${t} — ${deg} at Chaloklum Bay.`;
+            return `${t} · ${deg} at Chaloklum Bay.`;
           }
 
           fetch('https://api.open-meteo.com/v1/forecast?latitude=9.9476&longitude=100.0394&current=temperature_2m,weather_code&timezone=Asia%2FBangkok')
