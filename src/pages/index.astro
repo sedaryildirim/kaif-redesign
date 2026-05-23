@@ -836,9 +836,11 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
       menuTabs.forEach((t) => {
         t.classList.remove('is-active');
         t.setAttribute('aria-selected', 'false');
+        t.setAttribute('tabindex', '-1');
       });
       tab.classList.add('is-active');
       tab.setAttribute('aria-selected', 'true');
+      tab.setAttribute('tabindex', '0');
       menuPanels.forEach((p) => p.classList.remove('is-active'));
       const panel = document.getElementById(`tab-${target}`);
       if (panel) {
@@ -868,6 +870,11 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
       );
       document.querySelectorAll('.menu-item').forEach((item) => scrollHighlightIO.observe(item));
     }
+
+    // Init tabIndex — only active tab in natural tab order
+    menuTabs.forEach((t) => {
+      if (!t.classList.contains('is-active')) t.setAttribute('tabindex', '-1');
+    });
 
     menuTabs.forEach((tab, idx) => {
       tab.addEventListener('click', () => activateTab(tab));

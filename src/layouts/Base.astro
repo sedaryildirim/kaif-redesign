@@ -85,7 +85,7 @@ const jsonLd = JSON.stringify({
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Kaif restaurant, Chaloklum Bay, Koh Phangan — beachside Levantine soul food" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="en_GB" />
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -105,6 +105,8 @@ const jsonLd = JSON.stringify({
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <meta name="theme-color" content="#f5f0e8" />
+    <noscript><style>.hero-weather { display: none; }</style></noscript>
 
     <!-- Fonts: Alegreya (display) + Hanken Grotesk (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -229,6 +231,13 @@ const jsonLd = JSON.stringify({
       // Mobile nav toggle
       const navToggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
       if (navToggle && nav) {
+        const closeNav = () => {
+          nav.classList.remove('site-nav--open');
+          navToggle.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+          navToggle.focus();
+        };
+
         navToggle.addEventListener('click', () => {
           const isOpen = nav.classList.toggle('site-nav--open');
           navToggle.setAttribute('aria-expanded', String(isOpen));
@@ -238,13 +247,29 @@ const jsonLd = JSON.stringify({
             if (firstLink) firstLink.focus();
           }
         });
+
         nav.querySelectorAll('.nav-links a').forEach((link) => {
-          link.addEventListener('click', () => {
-            nav.classList.remove('site-nav--open');
-            navToggle.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-            navToggle.focus();
-          });
+          link.addEventListener('click', closeNav);
+        });
+
+        // Escape closes nav
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && nav.classList.contains('site-nav--open')) closeNav();
+        });
+
+        // Focus trap — wraps Tab/Shift+Tab within open nav
+        nav.addEventListener('keydown', (e) => {
+          if (!nav.classList.contains('site-nav--open') || e.key !== 'Tab') return;
+          const focusable = Array.from(
+            nav.querySelectorAll<HTMLElement>('a,button:not([disabled]),[tabindex]:not([tabindex="-1"])')
+          ).filter((el) => getComputedStyle(el).display !== 'none');
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey) {
+            if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+          } else {
+            if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+          }
         });
       }
 
