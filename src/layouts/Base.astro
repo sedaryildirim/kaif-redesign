@@ -156,13 +156,19 @@ const jsonLd = JSON.stringify({
       // Scroll reveal via IntersectionObserver
       const revealEls = document.querySelectorAll('[data-reveal]');
       if (revealEls.length) {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const io = new IntersectionObserver(
           (entries) => {
+            // Count menu items within this batch so they stagger relative to each other
+            let menuBatchIdx = 0;
             entries.forEach((entry) => {
               if (!entry.isIntersecting) return;
               const el = entry.target as HTMLElement;
-              const delay = Number(el.dataset.delay ?? 0);
-              setTimeout(() => el.classList.add('is-revealed'), delay);
+              const baseDelay = Number(el.dataset.delay ?? 0);
+              const stagger = (!prefersReducedMotion && el.classList.contains('menu-item'))
+                ? menuBatchIdx++ * 50
+                : 0;
+              setTimeout(() => el.classList.add('is-revealed'), baseDelay + stagger);
               io.unobserve(el);
             });
           },
