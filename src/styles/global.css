@@ -194,7 +194,7 @@ address { font-style: normal; }
 .btn-ghost-light {
   background-color: transparent;
   color: var(--stone);
-  border-color: color-mix(in srgb, var(--stone) 32%, transparent);
+  border-color: color-mix(in srgb, var(--stone) 55%, transparent);
 }
 
 /* ============================================================
@@ -1493,6 +1493,11 @@ address { font-style: normal; }
     justify-content: center;
   }
 
+  /* Parallax disabled on mobile — remove oversized inset */
+  .hero-img-wrap {
+    inset: 0;
+  }
+
   .hero-content {
     text-align: center;
     padding: calc(60px + 1.5rem) clamp(1.5rem, 5vw, 2.5rem) 2.5rem;
@@ -1588,7 +1593,6 @@ address { font-style: normal; }
   .menu-tabs {
     flex-wrap: nowrap;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     gap: 0;
   }

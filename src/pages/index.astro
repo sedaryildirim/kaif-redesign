@@ -751,6 +751,7 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
               start: 'center top',
               end: 'bottom top',
               scrub: 0.5,
+              onLeave: () => heroContent.style.removeProperty('will-change'),
             },
           });
         }
@@ -858,8 +859,8 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
       }
     };
 
-    // Mobile scroll highlight — triggers hover effect as items enter viewport
-    if (window.matchMedia('(max-width: 960px)').matches &&
+    // Tablet scroll highlight — 768–960px only (≤767px handled by Base.astro continuous system)
+    if (window.matchMedia('(min-width: 768px) and (max-width: 960px)').matches &&
         !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const scrollHighlightIO = new IntersectionObserver(
         (entries) => {
@@ -908,9 +909,12 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
         'a[href],button:not([disabled]),textarea,input,select,[tabindex]:not([tabindex="-1"])'
       ));
 
-    const openModal = (id: string) => {
+    let modalOpener: HTMLElement | null = null;
+
+    const openModal = (id: string, opener: HTMLElement) => {
       const modal = document.getElementById(`modal-${id}`);
       if (!modal) return;
+      modalOpener = opener;
       modal.removeAttribute('hidden');
       document.body.style.overflow = 'hidden';
       const panel = modal.querySelector<HTMLElement>('.legal-modal-panel');
@@ -922,10 +926,11 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
     const closeModal = (modal: HTMLElement) => {
       modal.setAttribute('hidden', '');
       document.body.style.overflow = '';
+      if (modalOpener) { modalOpener.focus(); modalOpener = null; }
     };
 
     document.querySelectorAll<HTMLButtonElement>('.footer-legal-btn').forEach((btn) => {
-      btn.addEventListener('click', () => openModal(btn.dataset.modal ?? ''));
+      btn.addEventListener('click', () => openModal(btn.dataset.modal ?? '', btn));
     });
 
     modals.forEach((modal) => {
