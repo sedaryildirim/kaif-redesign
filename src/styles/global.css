@@ -354,7 +354,9 @@ address { font-style: normal; }
   inset-block-start: 0;
   inset-inline-start: 0;
   height: 4px;
-  width: 0%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
   background: var(--brace);
   z-index: 200;
   opacity: 0;
@@ -461,7 +463,7 @@ address { font-style: normal; }
   background: var(--brace);
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .nav-links a:focus-visible,
 .nav-links a.is-active { color: var(--brace); }
@@ -601,7 +603,7 @@ address { font-style: normal; }
   letter-spacing: 0.02em;
   color: oklch(97% 0.005 90 / 0.52);
   opacity: 0;
-  transition: opacity 0.5s ease-out;
+  transition: opacity 0.3s ease-out;
 }
 .hero-weather time {
   font-weight: 500;
@@ -1209,7 +1211,7 @@ address { font-style: normal; }
   background: var(--gold);
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .menu-item.is-scroll-active .menu-item-name::after {

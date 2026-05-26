@@ -187,8 +187,8 @@ const jsonLd = JSON.stringify({
       const onScroll = () => {
         if (nav) nav.classList.toggle('site-nav--scrolled', window.scrollY > 48);
         if (tide) {
-          const progress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-          tide.style.width = `${Math.min(progress * 100, 100)}%`;
+          const progress = Math.min(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 1);
+          tide.style.transform = `scaleX(${progress})`;
           tide.classList.add('is-visible');
           if (progress >= 0.97 && !tideCompleted) {
             tideCompleted = true;
@@ -314,7 +314,14 @@ const jsonLd = JSON.stringify({
           }
         };
 
-        window.addEventListener('scroll', updateMenuHighlight, { passive: true });
+        let highlightRafId: number | null = null;
+        window.addEventListener('scroll', () => {
+          if (highlightRafId !== null) return;
+          highlightRafId = requestAnimationFrame(() => {
+            highlightRafId = null;
+            updateMenuHighlight();
+          });
+        }, { passive: true });
         mq.addEventListener('change', updateMenuHighlight);
 
         // Re-run when tabs switch so highlight tracks the active panel
@@ -338,10 +345,10 @@ const jsonLd = JSON.stringify({
           if (seq === 'kaif') {
             seq = '';
             const braces = document.querySelectorAll<HTMLElement>('.logo-brace, .hero-brace');
-            const restore = () => braces.forEach(b => b.style.removeProperty('color'));
             braces.forEach(b => { b.style.transition = 'color 0.35s ease'; b.style.color = 'var(--gold)'; });
             setTimeout(() => { braces.forEach(b => b.style.color = 'var(--seafoam)'); }, 380);
-            setTimeout(() => { restore(); braces.forEach(b => b.style.removeProperty('transition')); }, 760);
+            setTimeout(() => { braces.forEach(b => b.style.removeProperty('color')); }, 760);
+            setTimeout(() => { braces.forEach(b => b.style.removeProperty('transition')); }, 1100);
           }
         });
       }
@@ -362,12 +369,6 @@ const jsonLd = JSON.stringify({
       {
         const weatherEl = document.querySelector<HTMLElement>('.hero-weather');
         if (weatherEl) {
-          const WX_TYPE: Record<number, string> = {
-            0: '', 1: '', 2: 'cloud', 3: 'cloud', 45: 'fog', 48: 'fog',
-            51: 'rain', 53: 'rain', 55: 'rain', 61: 'rain', 63: 'rain', 65: 'rain',
-            80: 'rain', 81: 'rain', 82: 'rain', 95: 'storm', 96: 'storm', 99: 'storm',
-          };
-
           function wxSentence(temp: number, code: number, h24: number, dt: string, display: string): string {
             const t    = `<time datetime="${dt}">${display}</time>`;
             const hot  = temp >= 30;
@@ -413,8 +414,6 @@ const jsonLd = JSON.stringify({
             .then((d) => {
               const temp = Math.round(d.current.temperature_2m);
               const code = Number(d.current.weather_code);
-              const wx   = WX_TYPE[code] ?? '';
-              if (wx) weatherEl.setAttribute('data-wx', wx);
               weatherEl.classList.add('is-loaded');
 
               const render = () => {
