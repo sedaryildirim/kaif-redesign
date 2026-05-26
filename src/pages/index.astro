@@ -76,6 +76,7 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
 
         <div class="hero-ctas">
           <a class="btn btn-primary-light" href="#menu">The Menu</a>
+          <a class="btn btn-ghost-light" href="#visit">Find Us</a>
         </div>
 
         <p class="hero-meta">Open daily &middot; 8:00 AM &ndash; 8:00 PM</p>
@@ -711,6 +712,7 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
               start: 'top top',
               end: 'bottom top',
               scrub: 1.5,
+              onLeave: () => heroImg.style.removeProperty('will-change'),
             },
           }
         );
@@ -729,6 +731,7 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
               start: 'top bottom',
               end: 'bottom top',
               scrub: 1.5,
+              onLeave: () => placeImg.style.removeProperty('will-change'),
             },
           }
         );
