@@ -20,7 +20,7 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
         <li><a href="#about">About</a></li>
         <li><a href="#menu">Menu</a></li>
         <li><a href="#visit">Find Us</a></li>
-        <li><a href="#visit">Contact</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
       <button
         class="nav-toggle"
@@ -626,7 +626,7 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
                   rel="noopener noreferrer"
                 >@kaifphangan</a>
                 <a
-                  class="btn btn-ghost-sage"
+                  class="btn btn-ghost"
                   href="https://www.instagram.com/kaifphangan"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -641,7 +641,7 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
                   rel="noopener noreferrer"
                 >kaifphangan</a>
                 <a
-                  class="btn btn-ghost-sage"
+                  class="btn btn-ghost"
                   href="https://www.facebook.com/kaifphangan"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -685,7 +685,8 @@ import interiorImg from '../assets/kaif-interior-shot.jpg';
           const rect = heroEl.getBoundingClientRect();
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
-          heroGlow.style.background = `radial-gradient(circle 500px at ${x}px ${y}px, oklch(58% 0.11 75 / 0.12), oklch(72% 0.05 185 / 0.04) 55%, transparent 75%)`;
+          heroGlow.style.setProperty('--glow-x', `${x}px`);
+          heroGlow.style.setProperty('--glow-y', `${y}px`);
           heroGlow.classList.add('is-active');
         }, { passive: true });
         heroEl.addEventListener('mouseleave', () => heroGlow.classList.remove('is-active'));
